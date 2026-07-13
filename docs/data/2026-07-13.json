@@ -1,10 +1,12 @@
 {
   "data": "2026-07-13",
-  "domani": "Nessun punteggio di prontezza oggi.",
-  "riepilogo": "Ascolta le sensazioni.",
+  "domani": "Prontezza media: qualita' solo se ti senti bene, altrimenti fondo facile.",
+  "riepilogo": "Prontezza 65, FC riposo 56.",
   "punti": [],
   "metriche": {
-    "carico_7gg_km": 64.7,
-    "ultima_attivita": "Brescia Mountain Biking – 25.02 km, 900 m D+"
+    "prontezza": 65,
+    "fc_riposo": 56,
+    "carico_7gg_km": 86.6,
+    "ultima_attivita": "Mondsee eBiking – 21.95 km, 908 m D+"
   }
 }
