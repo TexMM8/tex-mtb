@@ -1,14 +1,15 @@
 {
-  "aggiornato": "2026-07-11 (demo)",
-  "carico_prossimo": "Settimana di scarico leggero: -15% volume. Una sola sessione di qualità in discesa quando la prontezza torna verde.",
-  "note": "HRV sotto la tua base e prontezza media: sposto la qualità a giovedì (quando sarai più recuperato) e alleggerisco il sabato. Il resto resta come il tuo piano.",
+  "aggiornato": "2026-07-13",
   "giorni": {
     "Lun": "Riposo",
-    "Mar": "Fondo Z2 60'",
-    "Mer": "Recupero attivo 40'",
-    "Gio": "Tecnica + 3 segmenti discesa (qualità)",
+    "Mar": "Fondo Z2 75'",
+    "Mer": "Tecnica + segmenti discesa, 3-4 run a ritmo gara",
+    "Gio": "Recupero 45' facile, FC bassa",
     "Ven": "Riposo",
-    "Sab": "Uscita media, 1-2 discese controllate",
-    "Dom": "Giro rigenerante"
-  }
+    "Sab": "Uscita lunga + 3-4 discese tirate su tratti tecnici",
+    "Dom": "Giro rigenerante corto, no segmenti"
+  },
+  "note": "Aumento leggermente i run cronometrati mercoledì e sabato (da 2-3 a 3-4) perché TE aerobico e recupero indicano margine di carico. Nessun altro cambio rispetto al tuo piano.",
+  "carico_prossimo": "Aumenta leggermente l'intensità sui segmenti in discesa, volume fondo invariato.",
+  "riepilogo_settimana": "3 uscite MTB, 64.7km e ~2140m D+ in 7gg, carico ben distribuito con FC prevalentemente in Z2-Z3 (144-157 bpm) e TE aerobico solido (3.7-4.4). Recupero tra le sessioni adeguato, nessun segnale di sovraccarico: puoi spingere leggermente sull'intensità in discesa questa settimana."
 }
