@@ -91,6 +91,13 @@ header{padding:calc(env(safe-area-inset-top) + 20px) 0 8px;display:flex;align-it
 .p-load{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:14px;padding:13px 15px;margin-bottom:12px}
 .p-load .k{font-family:var(--disp);letter-spacing:2px;text-transform:uppercase;font-size:11px;color:var(--amber);font-weight:600}
 .p-load .v{font-size:14px;margin-top:3px;line-height:1.4;color:#cdd8d1}
+.p-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:12px}
+.p-box.recap{border-left:3px solid var(--green)}
+.p-box.tip{border-left:3px solid var(--cyan)}
+.p-box .k{font-family:var(--disp);letter-spacing:2px;text-transform:uppercase;font-size:11px;font-weight:600;margin-bottom:4px}
+.p-box.recap .k{color:var(--green)}
+.p-box.tip .k{color:var(--cyan)}
+.p-box .v{font-size:14px;line-height:1.5;color:#cdd8d1}
 .p-note{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px}
 .cols-head{display:grid;grid-template-columns:34px 1fr 1fr;gap:8px;margin-bottom:6px}
 .cols-head span{font-family:var(--disp);letter-spacing:1px;text-transform:uppercase;font-size:11px;font-weight:600;color:var(--muted);text-align:center}
@@ -302,9 +309,9 @@ async function renderPlan(){
     <div class="p-head"><h3>Piano</h3></div>
     ${ed?`<div class="p-obj"><input id="pObj" value="${esc(mio.obiettivo||'')}" placeholder="Il tuo obiettivo" style="width:100%;background:var(--bg);border:1px solid var(--cyan);border-radius:8px;padding:8px;color:var(--text);font:inherit"></div>`:(mio.obiettivo?`<div class="p-obj">Obiettivo: ${esc(mio.obiettivo)}</div>`:'')}
     ${seg}${wtabs}
-    ${coach.riepilogo_settimana?`<div class="p-note" style="color:#cdd8d1;margin-bottom:12px">${esc(coach.riepilogo_settimana)}</div>`:''}
+    ${coach.riepilogo_settimana?`<div class="p-box recap"><div class="k">Riassunto Garmin · settimana passata</div><div class="v">${esc(coach.riepilogo_settimana)}</div></div>`:''}
     ${coach.carico_prossimo?`<div class="p-load"><div class="k">Carico proposto</div><div class="v">${esc(coach.carico_prossimo)}</div></div>`:''}
-    ${coach.note?`<div class="p-note">${esc(coach.note)}</div>`:''}
+    ${coach.note?`<div class="p-box tip"><div class="k">Coach tip della settimana</div><div class="v">${esc(coach.note)}</div></div>`:''}
     <div class="cols-head"><span></span><span class="mio">Il mio</span><span class="coach">Coach</span></div>
     ${rows}
     ${ed?`<div style="margin:16px 0 4px"><span style="font-family:var(--disp);letter-spacing:1px;text-transform:uppercase;font-size:11px;font-weight:600;color:var(--text)">Note per il coach</span></div><textarea id="pNota" class="p-nota" placeholder="Es: martedì saltato per stanchezza; sabato bici sostituito con palestra...">${esc(mio.note||'')}</textarea>`:(mio.note?`<div class="p-note" style="margin-top:14px"><b style="color:var(--cyan)">Note:</b> ${esc(mio.note)}</div>`:'')}
