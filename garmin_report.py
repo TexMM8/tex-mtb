@@ -212,39 +212,76 @@ def coach_settimana(m, dati, mio, partner):
     if partner:
         partner_txt = ("\nPARTNER (altro sport, per coordinare riposo e uscite di coppia nel weekend): "
                        + json.dumps(partner, ensure_ascii=False, default=str))
+    mensile = (mio.get("tipo") == "mensile")
+    obiettivo = (mio.get("obiettivo") or "").strip() or "(nessun obiettivo indicato)"
+    note_atleta = (mio.get("note") or "").strip()
+    if mensile:
+        forma = ('- "piano": {{ "settimane": array di ESATTAMENTE 4 oggetti (S1..S4), '
+                 'ognuno con le chiavi {GIORNI} (stringa breve per giorno), '
+                 '"note": 1-2 frasi sui cambiamenti collegati all\'obiettivo, '
+                 '"carico_prossimo": 1 frase sull\'andamento del mese }}').format(GIORNI=GIORNI)
+        contesto = ("Il MIO piano e' MENSILE (4 settimane, campo 'settimane'). "
+                    "Ragiona in PERIODIZZAZIONE sul mese: progressione del carico e scarico al momento giusto "
+                    "verso l'obiettivo. Aggiorna tutte e 4 le settimane.")
+    else:
+        forma = ('- "piano": {{ "giorni": oggetto con ESATTAMENTE le chiavi {GIORNI} (stringa breve per giorno), '
+                 '"note": 1-2 frasi sui cambiamenti collegati all\'obiettivo, '
+                 '"carico_prossimo": 1 frase (aumenta/mantieni/scarico) }}').format(GIORNI=GIORNI)
+        contesto = "Il MIO piano e' SETTIMANALE (campo 'giorni'): proponi il piano della SETTIMANA SUCCESSIVA."
     prompt = f"""{COACH_INTRO}
 
-E' domenica sera: analizza la settimana appena chiusa (dati Garmin) e il MIO piano, e proponi il piano della SETTIMANA SUCCESSIVA.
+Il mio OBIETTIVO guida ogni scelta: {obiettivo}
+
+E' domenica sera. Procedi cosi':
+1) Confronta cosa avevo IN PROGRAMMA (MIO_PIANO) con cosa ho DAVVERO fatto secondo Garmin
+   (ATTIVITA_7GG + METRICHE): cosa e' stato rispettato, saltato, o fatto con piu'/meno intensita'.
+   Tieni conto anche delle NOTE_ATLETA (deviazioni che ho annotato: sostituzioni, salti, stanchezza).
+2) Valuta forma e recupero (prontezza, HRV, carico, training effect).
+3) Parti dal MIO piano e modificalo per avvicinarmi all'OBIETTIVO, rispettando il recupero.
+   {contesto}
 
 Rispondi SOLO con JSON valido (niente testo fuori, niente ```), campi:
-- "riepilogo_settimana": 2-3 frasi su come e' andata la settimana e sullo stato di forma/recupero.
-- "piano": {{ "giorni": oggetto con ESATTAMENTE le chiavi {GIORNI} (stringa breve per giorno),
-              "note": 1-2 frasi su cosa cambi rispetto al mio piano e perche',
-              "carico_prossimo": 1 frase (aumenta/mantieni/scarico) }}
+- "riepilogo_settimana": 2-3 frasi: pianificato vs reale + stato di forma.
+{forma}
 
-Parti dal MIO piano e cambia solo dove i dati lo giustificano. Conciso: faccio fatica a leggere testi lunghi.
+Cambia solo dove i dati e l'obiettivo lo giustificano. Conciso: faccio fatica a leggere testi lunghi.
 
 METRICHE_OGGI: {json.dumps(m, ensure_ascii=False)}
 ATTIVITA_7GG: {json.dumps(dati.get("attivita"), ensure_ascii=False, default=str)}
+NOTE_ATLETA: {note_atleta or '(nessuna)'}
 MIO_PIANO: {json.dumps(mio, ensure_ascii=False)}{partner_txt}
 """
-    msg = client.messages.create(model=MODEL, max_tokens=2000,
+    msg = client.messages.create(model=MODEL, max_tokens=2500,
                                  messages=[{"role": "user", "content": prompt}])
     testo = "".join(b.text for b in msg.content if b.type == "text").strip()
     try:
-        return json.loads(testo[testo.find("{"): testo.rfind("}") + 1])
+        rep = json.loads(testo[testo.find("{"): testo.rfind("}") + 1])
+        rep["_mensile"] = mensile
+        return rep
     except Exception as e:
         print(f"  ! JSON Claude non valido ({e}).", file=sys.stderr)
-        return {"riepilogo_settimana": testo[:400],
-                "piano": {"giorni": mio.get("giorni", {}), "note": "", "carico_prossimo": ""}}
+        fallback = {"riepilogo_settimana": testo[:400], "_mensile": mensile,
+                    "piano": {"note": "", "carico_prossimo": ""}}
+        if mensile:
+            fallback["piano"]["settimane"] = mio.get("settimane", [])
+        else:
+            fallback["piano"]["giorni"] = mio.get("giorni", {})
+        return fallback
 
 
 def scrivi_piano(rep, giorno):
     os.makedirs(DATA_DIR, exist_ok=True)
     piano = rep.get("piano", {}) or {}
-    plan = {"aggiornato": giorno, "giorni": piano.get("giorni", {}),
-            "note": piano.get("note", ""), "carico_prossimo": piano.get("carico_prossimo", ""),
+    mensile = rep.get("_mensile", False)
+    plan = {"aggiornato": giorno,
+            "tipo": "mensile" if mensile else "settimanale",
+            "note": piano.get("note", ""),
+            "carico_prossimo": piano.get("carico_prossimo", ""),
             "riepilogo_settimana": rep.get("riepilogo_settimana", "")}
+    if mensile:
+        plan["settimane"] = piano.get("settimane", [])
+    else:
+        plan["giorni"] = piano.get("giorni", {})
     json.dump(plan, open(os.path.join(DATA_DIR, "plan.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     print("Piano del coach aggiornato.")
