@@ -17,7 +17,6 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   const isNav = e.request.mode === 'navigate' || url.pathname.endsWith('/') || url.pathname.endsWith('index.html');
-  // App e dati: sempre dalla rete (fresco). Cache solo come rete di riserva offline.
   if (isNav || url.pathname.includes('/data/') || url.pathname.endsWith('.html')) {
     e.respondWith(
       fetch(e.request).then(r => {
@@ -27,6 +26,5 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
-  // Icone/immagini: cache-first (non cambiano spesso).
   e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
