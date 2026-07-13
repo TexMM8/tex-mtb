@@ -1,0 +1,13 @@
+{
+  "obiettivo": "Migliorare i tempi in discesa sui segmenti Strava, tenendo il fondo per le uscite lunghe",
+  "aggiornato": "2026-07-11 (demo)",
+  "giorni": {
+    "Lun": "Riposo",
+    "Mar": "Fondo Z2 75'",
+    "Mer": "Tecnica + segmenti discesa",
+    "Gio": "Recupero 45' facile",
+    "Ven": "Riposo",
+    "Sab": "Uscita lunga + 2-3 discese tirate",
+    "Dom": "Giro rigenerante"
+  }
+}

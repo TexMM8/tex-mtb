@@ -1,0 +1,20 @@
+{
+  "data": "2026-07-09",
+  "domani": "Riposo o camminata leggera. Gambe scariche dopo il blocco discese.",
+  "riepilogo": "Giornata di carico alto: due segmenti tirati forte, buona intensità. Prontezza scesa come previsto, tutto nella norma.",
+  "punti": [
+    "Training effect anaerobico alto: lavoro di qualità fatto.",
+    "FC massima vicina ai valori di riferimento in discesa.",
+    "Attenzione al recupero nelle prossime 48h."
+  ],
+  "metriche": {
+    "prontezza": 61,
+    "fc_riposo": 49,
+    "hrv": "45ms",
+    "sonno_h": 6.8,
+    "vo2max": 53,
+    "carico_7gg_km": 76.1,
+    "ultima_attivita": "Segmenti discesa – 15.2 km, 540 m D+"
+  },
+  "demo": true
+}

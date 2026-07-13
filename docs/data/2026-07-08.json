@@ -1,0 +1,20 @@
+{
+  "data": "2026-07-08",
+  "domani": "Via libera ai segmenti: giornata da PR se il meteo aiuta.",
+  "riepilogo": "Recupero completo, HRV sopra la base e prontezza alta. Condizioni ideali per spingere sui tratti in discesa.",
+  "punti": [
+    "Prontezza 78: giornata verde, puoi caricare.",
+    "HRV sopra la media: ottimo segnale di recupero.",
+    "Riposo dei giorni scorsi ha pagato."
+  ],
+  "metriche": {
+    "prontezza": 78,
+    "fc_riposo": 45,
+    "hrv": "56ms",
+    "sonno_h": 7.9,
+    "vo2max": 53,
+    "carico_7gg_km": 68.5,
+    "ultima_attivita": "Giro rigenerante – 24.0 km, 320 m D+"
+  },
+  "demo": true
+}

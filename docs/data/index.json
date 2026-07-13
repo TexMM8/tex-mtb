@@ -1,0 +1,8 @@
+{
+  "ultimo_aggiornamento": "2026-07-11 (demo)",
+  "giorni": {
+    "2026-07-08": { "color": "green", "prontezza": 78 },
+    "2026-07-09": { "color": "amber", "prontezza": 61 },
+    "2026-07-11": { "color": "amber", "prontezza": 64 }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "aggiornato": "2026-07-11 (demo)",
+  "carico_prossimo": "Settimana di scarico leggero: -15% volume. Una sola sessione di qualità in discesa quando la prontezza torna verde.",
+  "note": "HRV sotto la tua base e prontezza media: sposto la qualità a giovedì (quando sarai più recuperato) e alleggerisco il sabato. Il resto resta come il tuo piano.",
+  "giorni": {
+    "Lun": "Riposo",
+    "Mar": "Fondo Z2 60'",
+    "Mer": "Recupero attivo 40'",
+    "Gio": "Tecnica + 3 segmenti discesa (qualità)",
+    "Ven": "Riposo",
+    "Sab": "Uscita media, 1-2 discese controllate",
+    "Dom": "Giro rigenerante"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "data": "2026-07-11",
+  "domani": "Uscita facile in Z2, 60-75 min. Niente sprint sui segmenti.",
+  "riepilogo": "Carico delle ultime uscite ancora nelle gambe: prontezza media e HRV leggermente sotto la tua base. Recupero attivo oggi, così sabato spingi in discesa con gambe fresche.",
+  "punti": [
+    "Prontezza 64: sufficiente ma non da giornata PR.",
+    "HRV sotto la media di 7 giorni: sistema nervoso ancora in recupero.",
+    "Sonno buono (7h20): continua così.",
+    "Carico 7 giorni in crescita sana, nessun campanello d'allarme."
+  ],
+  "metriche": {
+    "prontezza": 64,
+    "fc_riposo": 47,
+    "hrv": "48ms",
+    "sonno_h": 7.3,
+    "vo2max": 53,
+    "carico_7gg_km": 82.4,
+    "ultima_attivita": "Enduro Freilassing – 21.4 km, 710 m D+"
+  },
+  "demo": true
+}
