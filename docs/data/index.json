@@ -1,1 +1,9 @@
-{ "giorni": {} }
+{
+  "giorni": {
+    "2026-07-13": {
+      "color": "gray",
+      "prontezza": null
+    }
+  },
+  "ultimo_aggiornamento": "2026-07-13"
+}
