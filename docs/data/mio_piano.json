@@ -1,7 +1,45 @@
 {
   "obiettivo": "Migliorare i tempi in discesa, tenendo il fondo per le uscite lunghe",
-  "tipo": "settimanale",
+  "tipo": "mensile",
   "aggiornato": "2026-07-13",
+  "settimane": [
+    {
+      "Lun": "Riposo o ebike",
+      "Mar": "fondo enduro + tecnica",
+      "Mer": "palestra",
+      "Gio": "fonod enduro+ tecnica",
+      "Ven": "Riposo o ebike",
+      "Sab": "soglia",
+      "Dom": "enduro lungo o bikepark"
+    },
+    {
+      "Lun": "Riposo o ebike",
+      "Mar": "fondo enduro + tecnica",
+      "Mer": "palestra",
+      "Gio": "fonod enduro+ tecnica",
+      "Ven": "Riposo o ebike",
+      "Sab": "soglia",
+      "Dom": "enduro lungo o bikepark"
+    },
+    {
+      "Lun": "Riposo o ebike",
+      "Mar": "fondo enduro + tecnica",
+      "Mer": "palestra",
+      "Gio": "fonod enduro+ tecnica",
+      "Ven": "Riposo o ebike",
+      "Sab": "soglia",
+      "Dom": "enduro lungo o bikepark"
+    },
+    {
+      "Lun": "Riposo o ebike",
+      "Mar": "fondo enduro + tecnica",
+      "Mer": "palestra",
+      "Gio": "fonod enduro+ tecnica",
+      "Ven": "Riposo o ebike",
+      "Sab": "soglia",
+      "Dom": "enduro lungo o bikepark"
+    }
+  ],
   "giorni": {
     "Lun": "Riposo o ebike",
     "Mar": "fondo enduro + tecnica",
