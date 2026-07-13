@@ -312,7 +312,7 @@ async function salvaPiano(){
   try{
     await ghPut('docs/data/mio_piano.json',nuovo,'Aggiorno il mio piano dall\'app',cfg);
     state.mio=nuovo;state.editing=false;renderPlan();
-    const m2=$('#pMsg');m2.className='p-msg ok';m2.textContent='Salvato. Il coach lo userà alla prossima analisi notturna.';
+    const m2=$('#pMsg');m2.className='p-msg ok';m2.textContent='Salvato. Il coach ne terra conto alla revisione di doemnica.';
   }catch(e){msg.className='p-msg err';msg.textContent='Errore: '+e.message;}
 }
 async function ghPut(path,obj,message,cfg){
