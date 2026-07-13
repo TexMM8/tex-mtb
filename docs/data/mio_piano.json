@@ -1,5 +1,6 @@
 {
-  "obiettivo": "Migliorare i tempi in discesa sui segmenti Strava, tenendo il fondo per le uscite lunghe",
+  "obiettivo": "Migliorare i tempi in discesa, tenendo il fondo per le uscite lunghe",
+  "tipo": "settimanale",
   "aggiornato": "2026-07-13",
   "giorni": {
     "Lun": "Riposo o ebike",
@@ -9,5 +10,6 @@
     "Ven": "Riposo o ebike",
     "Sab": "soglia",
     "Dom": "enduro lungo o bikepark"
-  }
+  },
+  "note": ""
 }
