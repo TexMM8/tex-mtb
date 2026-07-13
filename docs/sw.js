@@ -1,16 +1,10 @@
-// Apex service worker
-const CACHE = 'apex-v1';
-const SHELL = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
-];
+// Apex service worker — v2 (aggiornamenti sempre freschi)
+const CACHE = 'apex-v2';
+const ICONS = ['./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png','./icons/favicon.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ICONS)).catch(()=>{}));
 });
 
 self.addEventListener('activate', e => {
@@ -22,17 +16,17 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
-  // Dati: sempre freschi (network-first), con fallback alla cache offline.
-  if (url.pathname.includes('/data/')) {
+  const isNav = e.request.mode === 'navigate' || url.pathname.endsWith('/') || url.pathname.endsWith('index.html');
+  // App e dati: sempre dalla rete (fresco). Cache solo come rete di riserva offline.
+  if (isNav || url.pathname.includes('/data/') || url.pathname.endsWith('.html')) {
     e.respondWith(
       fetch(e.request).then(r => {
-        const copy = r.clone();
-        caches.open(CACHE).then(c => c.put(e.request, copy));
+        const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy));
         return r;
       }).catch(() => caches.match(e.request))
     );
     return;
   }
-  // Guscio app: cache-first.
+  // Icone/immagini: cache-first (non cambiano spesso).
   e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
