@@ -107,6 +107,13 @@ header{padding:calc(env(safe-area-inset-top) + 20px) 0 8px;display:flex;align-it
 .btn:active{filter:brightness(.92)}
 .p-msg{font-size:12px;margin-top:10px;min-height:16px}
 .p-msg.ok{color:var(--green)}.p-msg.err{color:var(--red)}
+.seg{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;margin:4px 0 12px}
+.seg button{flex:1;border:none;background:none;color:var(--muted);padding:9px;border-radius:9px;font-family:var(--disp);letter-spacing:1px;text-transform:uppercase;font-size:12px;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--cyan);color:#04252b}
+.wtabs{display:flex;gap:6px;margin-bottom:12px}
+.wtabs button{flex:1;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:8px;border-radius:10px;font-family:var(--mono);font-size:12px;cursor:pointer}
+.wtabs button.on{border-color:var(--cyan);color:var(--cyan)}
+.p-nota{width:100%;min-height:72px;background:var(--bg);border:1px solid var(--cyan);border-radius:10px;padding:10px;color:var(--text);font:inherit;font-size:13px;resize:vertical}
 
 /* settings modal */
 .modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:18px}
@@ -196,7 +203,7 @@ header{padding:calc(env(safe-area-inset-top) + 20px) 0 8px;display:flex;align-it
 <script>
 const MESI=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 const GIORNI=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
-const state={idx:{giorni:{}},year:0,month:0,sel:null,mio:null,coach:null,editing:false};
+const state={idx:{giorni:{}},year:0,month:0,sel:null,mio:null,coach:null,editing:false,tipo:null,wsel:0};
 const $=s=>document.querySelector(s);
 const iso=d=>d.toISOString().slice(0,10);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -277,45 +284,62 @@ async function renderPlan(){
   if(!state.mio) state.mio=await jget('./data/mio_piano.json')||{obiettivo:'',giorni:{}};
   if(!state.coach) state.coach=await jget('./data/plan.json')||{giorni:{}};
   const mio=state.mio,coach=state.coach,ed=state.editing;
+  if(state.tipo===null) state.tipo=mio.tipo||'settimanale';
+  const gd=(o)=> state.tipo==='mensile' ? ((o.settimane&&o.settimane[state.wsel])||{}) : (o.giorni||{});
+  const mioW=gd(mio), coachW=gd(coach);
   const rows=GIORNI.map(g=>{
-    const mv=mio.giorni?.[g]||'', cv=coach.giorni?.[g]||'';
+    const mv=mioW[g]||'', cv=coachW[g]||'';
     const diff=cv&&cv.trim()!==mv.trim();
     const mioCell=ed?`<div class="pcell edit"><input data-day="${g}" value="${esc(mv)}"></div>`:`<div class="pcell">${esc(mv||'—')}</div>`;
     return `<div class="prow"><div class="pday">${g}</div>${mioCell}<div class="pcell coach${diff?' diff':''}">${esc(cv||'—')}</div></div>`;
   }).join('');
+  const seg=`<div class="seg"><button class="${state.tipo==='settimanale'?'on':''}" data-tipo="settimanale">Settimanale</button><button class="${state.tipo==='mensile'?'on':''}" data-tipo="mensile">Mensile</button></div>`;
+  const wtabs=state.tipo==='mensile'?`<div class="wtabs">${[0,1,2,3].map(i=>`<button class="${state.wsel===i?'on':''}" data-w="${i}">S${i+1}</button>`).join('')}</div>`:'';
   const btns=ed
     ? `<div class="pbtns"><button class="btn" id="pCancel">Annulla</button><button class="btn primary" id="pSave">Salva</button></div>`
     : `<div class="pbtns"><button class="btn" id="pEdit">Modifica il mio piano</button></div>`;
   $('#planBody').innerHTML=`
     <div class="p-head"><h3>Piano</h3></div>
-    ${mio.obiettivo?`<div class="p-obj">Obiettivo: ${esc(mio.obiettivo)}</div>`:''}
+    ${ed?`<div class="p-obj"><input id="pObj" value="${esc(mio.obiettivo||'')}" placeholder="Il tuo obiettivo" style="width:100%;background:var(--bg);border:1px solid var(--cyan);border-radius:8px;padding:8px;color:var(--text);font:inherit"></div>`:(mio.obiettivo?`<div class="p-obj">Obiettivo: ${esc(mio.obiettivo)}</div>`:'')}
+    ${seg}${wtabs}
     ${coach.riepilogo_settimana?`<div class="p-note" style="color:#cdd8d1;margin-bottom:12px">${esc(coach.riepilogo_settimana)}</div>`:''}
     ${coach.carico_prossimo?`<div class="p-load"><div class="k">Carico proposto</div><div class="v">${esc(coach.carico_prossimo)}</div></div>`:''}
     ${coach.note?`<div class="p-note">${esc(coach.note)}</div>`:''}
     <div class="cols-head"><span></span><span class="mio">Il mio</span><span class="coach">Coach</span></div>
     ${rows}
+    ${ed?`<div style="margin:16px 0 4px"><span style="font-family:var(--disp);letter-spacing:1px;text-transform:uppercase;font-size:11px;font-weight:600;color:var(--text)">Note per il coach</span></div><textarea id="pNota" class="p-nota" placeholder="Es: martedì saltato per stanchezza; sabato bici sostituito con palestra...">${esc(mio.note||'')}</textarea>`:(mio.note?`<div class="p-note" style="margin-top:14px"><b style="color:var(--cyan)">Note:</b> ${esc(mio.note)}</div>`:'')}
     ${btns}
     <div class="p-msg" id="pMsg"></div>
-    <div class="hero-sub" style="margin-top:10px">Aggiornato dal coach: ${esc(coach.aggiornato||'—')}. Le proposte in azzurro differiscono dal tuo piano.</div>`;
-  if(ed){
-    $('#pCancel').onclick=()=>{state.editing=false;renderPlan();};
-    $('#pSave').onclick=salvaPiano;
-  }else{
-    $('#pEdit').onclick=()=>{state.editing=true;renderPlan();};
-  }
+    <div class="hero-sub" style="margin-top:10px">${state.tipo==='mensile'?'Piano mensile · settimana '+(state.wsel+1)+' di 4. ':''}Aggiornato dal coach: ${esc(coach.aggiornato||'—')}. In azzurro le proposte diverse dal tuo piano.</div>`;
+  document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.tipo; if(t===state.tipo)return;
+    if(t==='mensile'&&!Array.isArray(state.mio.settimane)){const base=state.mio.giorni||{};state.mio.settimane=[{...base},{...base},{...base},{...base}];}
+    state.tipo=t; state.mio.tipo=t; state.editing=false; state.wsel=0; renderPlan();
+  });
+  document.querySelectorAll('.wtabs button').forEach(b=>b.onclick=()=>{state.wsel=+b.dataset.w;state.editing=false;renderPlan();});
+  if(ed){$('#pCancel').onclick=()=>{state.editing=false;renderPlan();};$('#pSave').onclick=salvaPiano;}
+  else{$('#pEdit').onclick=()=>{state.editing=true;renderPlan();};}
 }
 async function salvaPiano(){
   const msg=$('#pMsg');msg.className='p-msg';msg.textContent='Salvo…';
   const giorni={};document.querySelectorAll('#planBody input[data-day]').forEach(i=>giorni[i.dataset.day]=i.value.trim());
-  const nuovo={obiettivo:state.mio.obiettivo||'',aggiornato:iso(new Date()),giorni};
+  const _o=document.getElementById('pObj');const _ob=_o?_o.value.trim():(state.mio.obiettivo||'');
+  const nuovo={obiettivo:_ob,tipo:state.tipo,aggiornato:iso(new Date())};
+  if(state.tipo==='mensile'){
+    let sett=Array.isArray(state.mio.settimane)?state.mio.settimane.map(w=>({...w})):[{},{},{},{}];
+    while(sett.length<4)sett.push({});
+    sett[state.wsel]=giorni; nuovo.settimane=sett; nuovo.giorni=state.mio.giorni||{};
+  }else{ nuovo.giorni=giorni; }
+  const _n=document.getElementById('pNota');nuovo.note=_n?_n.value.trim():(state.mio.note||'');
   const cfg=getCfg();
   if(!cfg.token){msg.className='p-msg err';msg.innerHTML='Manca il token GitHub. Aprilo con l\'ingranaggio in alto.';return;}
   try{
     await ghPut('docs/data/mio_piano.json',nuovo,'Aggiorno il mio piano dall\'app',cfg);
     state.mio=nuovo;state.editing=false;renderPlan();
-    const m2=$('#pMsg');m2.className='p-msg ok';m2.textContent='Salvato. Il coach lo userà alla prossima analisi notturna.';
+    const m2=$('#pMsg');m2.className='p-msg ok';m2.textContent='Salvato. Il coach ne terrà conto alla revisione di domenica.';
   }catch(e){msg.className='p-msg err';msg.textContent='Errore: '+e.message;}
 }
+
 async function ghPut(path,obj,message,cfg){
   const api=`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`;
   const hdr={Authorization:'Bearer '+cfg.token,Accept:'application/vnd.github+json','Content-Type':'application/json'};
