@@ -223,12 +223,13 @@ function detectRepo(){
   const repo=seg.length?seg[0]:(owner?owner+'.github.io':'');
   return {owner,repo};
 }
+function cfgKey(){return 'apexCfg:'+detectRepo().repo;}
 function getCfg(){
   const d=detectRepo();
-  let s={}; try{s=JSON.parse(localStorage.getItem('apexCfg')||'{}');}catch(e){}
+  let s={}; try{s=JSON.parse(localStorage.getItem(cfgKey())||'{}');}catch(e){}
   return {owner:s.owner||d.owner, repo:s.repo||d.repo, branch:s.branch||'main', token:s.token||''};
 }
-function saveCfg(c){localStorage.setItem('apexCfg',JSON.stringify(c));}
+function saveCfg(c){localStorage.setItem(cfgKey(),JSON.stringify(c));}
 
 /* ---------- load ---------- */
 async function jget(p){try{const r=await fetch(p+'?ts='+Date.now());if(r.ok)return await r.json();}catch(e){}return null;}
@@ -356,7 +357,14 @@ async function ghPut(path,obj,message,cfg){
   const content=btoa(unescape(encodeURIComponent(JSON.stringify(obj,null,2))));
   const body={message,content,branch:cfg.branch};if(sha)body.sha=sha;
   const p=await fetch(api,{method:'PUT',headers:hdr,body:JSON.stringify(body)});
-  if(!p.ok)throw new Error('GitHub '+p.status);
+  if(!p.ok){
+    let det='';
+    try{const j=await p.json();det=j.message||'';}catch(e){}
+    if(p.status===403)det=det||'Il token non ha il permesso Contents: Read and write su questo repo.';
+    if(p.status===404)det=det||'Repo/owner non trovati, o il token non vede questo repo.';
+    if(p.status===401)det=det||'Token non valido o scaduto.';
+    throw new Error('GitHub '+p.status+' — '+det);
+  }
 }
 
 /* ---------- settings modal ---------- */
