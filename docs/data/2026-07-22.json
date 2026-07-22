@@ -1,0 +1,12 @@
+{
+  "data": "2026-07-22",
+  "domani": "Prontezza bassa: scarico o riposo, niente intensita'.",
+  "riepilogo": "Prontezza 10, FC riposo 60.",
+  "punti": [],
+  "metriche": {
+    "prontezza": 10,
+    "fc_riposo": 60,
+    "carico_7gg_km": 67.8,
+    "ultima_attivita": "Mondsee Mountain Biking – 13.93 km, 573 m D+"
+  }
+}
