@@ -43,7 +43,11 @@
     "2026-07-23": {
       "color": "red",
       "prontezza": 26
+    },
+    "2026-07-24": {
+      "color": "amber",
+      "prontezza": 50
     }
   },
-  "ultimo_aggiornamento": "2026-07-23"
+  "ultimo_aggiornamento": "2026-07-24"
 }
