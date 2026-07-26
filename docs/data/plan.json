@@ -1,45 +1,53 @@
 {
-  "aggiornato": "2026-07-19",
+  "aggiornato": "2026-07-26",
   "tipo": "mensile",
   "note": "",
   "carico_prossimo": "",
-  "riepilogo_settimana": "",
+  "riepilogo_settimana": "Piano rispettato solo in parte: mercoledì palestra sostituita da MTB intenso (FC157, TE5.0) e giovedì niente allenamento per puntura anca invece del secondo fondo. Sabato 'soglia' fatta ma blanda (FC138, TE3.3), carico settimanale basso (63km) con FC riposo ottima (55) e TE contenuti: recupero buono, margine per alzare intensità in discesa senza rischi.",
   "settimane": [
     {
-      "Lun": "Riposo o ebike",
-      "Mar": "fondo enduro + tecnica",
-      "Mer": "palestra",
-      "Gio": "fonod enduro+ tecnica",
-      "Ven": "Riposo o ebike",
-      "Sab": "soglia",
-      "Dom": "enduro lungo o bikepark"
+      "Lun": "Riposo attivo + mobilità anca",
+      "Mar": "Tecnica discesa: 3-4 run cronometrate Strava, no fondo",
+      "Mer": "Palestra (forza gambe/core, no salti)",
+      "Gio": "Fondo leggero enduro, verifica anca",
+      "Ven": "Riposo o ebike facile",
+      "Sab": "Soglia vera: salite ripetute + 2 run discesa max intensità",
+      "Dom": "Enduro medio, focus linee tecniche, non lungo",
+      "note": "Settimana di rientro post-fastidio anca: priorità tecnica discesa e controllo carico, fondo ridotto.",
+      "carico_prossimo": "Base di ripartenza, carico moderato per consolidare recupero."
     },
     {
       "Lun": "Riposo o ebike",
-      "Mar": "fondo enduro + tecnica",
-      "Mer": "palestra",
-      "Gio": "fonod enduro+ tecnica",
+      "Mar": "Fondo enduro + tecnica, run cronometrati su 2 segmenti chiave",
+      "Mer": "Palestra (potenza esplosiva gambe)",
+      "Gio": "Fondo enduro + tecnica, discese ripetute",
       "Ven": "Riposo o ebike",
-      "Sab": "soglia",
-      "Dom": "enduro lungo o bikepark"
+      "Sab": "Soglia reale (Z4) + 3 run discesa a ritmo gara",
+      "Dom": "Enduro lungo, fondo pieno",
+      "note": "Carico in salita: più run cronometrati per lavorare sui tempi Strava, fondo domenicale ripristinato.",
+      "carico_prossimo": "Progressione controllata, volume e intensità in crescita."
     },
     {
       "Lun": "Riposo o ebike",
-      "Mar": "fondo enduro + tecnica",
-      "Mer": "palestra",
-      "Gio": "fonod enduro+ tecnica",
-      "Ven": "Riposo o ebike",
-      "Sab": "soglia",
-      "Dom": "enduro lungo o bikepark"
+      "Mar": "Fondo enduro + tecnica alta intensità, 4 run top speed",
+      "Mer": "Palestra (max forza)",
+      "Gio": "Fondo enduro + tecnica, sessione bikepark se possibile",
+      "Ven": "Riposo attivo (mobilità, no bici)",
+      "Sab": "Soglia dura + PR attempt su 2 segmenti Strava",
+      "Dom": "Bikepark: giornata discese ripetute, volume alto",
+      "note": "Settimana di picco: massima densità di discese cronometrate, focus assoluto su tempi Strava.",
+      "carico_prossimo": "Picco mensile di carico e intensità in discesa."
     },
     {
       "Lun": "Riposo o ebike",
-      "Mar": "fondo enduro + tecnica",
-      "Mer": "palestra",
-      "Gio": "fonod enduro+ tecnica",
-      "Ven": "Riposo o ebike",
-      "Sab": "soglia",
-      "Dom": "enduro lungo o bikepark"
+      "Mar": "Fondo leggero enduro + tecnica, run controllati (no PR)",
+      "Mer": "Palestra leggera / mobilità",
+      "Gio": "Fondo enduro leggero",
+      "Ven": "Riposo completo",
+      "Sab": "Soglia ridotta, qualità non quantità",
+      "Dom": "Enduro lungo tranquillo, fondo",
+      "note": "Scarico programmato per assorbire il picco S3 e arrivare fresco al nuovo blocco.",
+      "carico_prossimo": "Settimana di scarico: volume e intensità ridotti per supercompensazione."
     }
   ]
 }
