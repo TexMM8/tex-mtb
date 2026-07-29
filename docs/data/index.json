@@ -63,7 +63,11 @@
     "2026-07-28": {
       "color": "amber",
       "prontezza": 58
+    },
+    "2026-07-29": {
+      "color": "red",
+      "prontezza": 20
     }
   },
-  "ultimo_aggiornamento": "2026-07-28"
+  "ultimo_aggiornamento": "2026-07-29"
 }
