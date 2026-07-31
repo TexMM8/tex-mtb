@@ -71,7 +71,11 @@
     "2026-07-30": {
       "color": "red",
       "prontezza": 35
+    },
+    "2026-07-31": {
+      "color": "gray",
+      "prontezza": null
     }
   },
-  "ultimo_aggiornamento": "2026-07-30"
+  "ultimo_aggiornamento": "2026-07-31"
 }
